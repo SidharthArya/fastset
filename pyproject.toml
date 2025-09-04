@@ -1,0 +1,17 @@
+[tool.uv.workspace]
+members = ["frontend", "backend"]
+
+[tool.uv]
+dev-dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fastset-bi-platform"
+version = "0.1.0"
+description = "FastSet BI Platform with frontend and backend workspaces"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
