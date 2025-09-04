@@ -1,6 +1,10 @@
 # FastSet BI Platform
 
+Not usable yet - development in progress
+
 A modern Business Intelligence platform built with Python, featuring a clean separation between frontend and backend services using uv workspaces.
+![Login Screen](/images/login.png)
+
 
 ## Architecture
 
