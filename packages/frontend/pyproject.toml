@@ -9,6 +9,9 @@ description = "FastSet BI Platform Frontend"
 requires-python = ">=3.8"
 dependencies = [
     "python-fasthtml>=0.12.25",
+    "httpx>=0.25.0",
+    "pandas>=2.3.2",
+    "plotly>=6.3.0",
 ]
 
 [tool.uv]

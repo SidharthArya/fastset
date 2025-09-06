@@ -210,6 +210,18 @@ login_styles = Style(f"""
         box-shadow: 0 4px 12px var(--shadow-medium);
     }}
     
+    /* Error message styles */
+    .error-message {{
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 6px;
+        padding: 12px;
+        color: #dc2626;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 1rem;
+    }}
+    
     /* Dark theme specific adjustments */
     [data-theme="dark"] .login-container {{
         background: var(--bg-primary);
@@ -232,5 +244,11 @@ login_styles = Style(f"""
         background: var(--bg-secondary);
         border-color: var(--border-light);
         color: var(--text-primary);
+    }}
+    
+    [data-theme="dark"] .error-message {{
+        background: rgba(239, 68, 68, 0.15);
+        border-color: rgba(239, 68, 68, 0.4);
+        color: #f87171;
     }}
 """)
