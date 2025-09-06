@@ -53,7 +53,7 @@ def get_current_active_user_middleware(
     user: User = Depends(require_auth_middleware)
 ) -> User:
     """Get current active user using middleware"""
-    if not user.is_active:
+    if user.deleted_at is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Inactive user"
@@ -79,7 +79,7 @@ def get_current_user(
 
 def get_current_active_user(current_user: User = Depends(get_current_user)) -> User:
     """Get current active user"""
-    if not current_user.is_active:
+    if current_user.deleted_at is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Inactive user"

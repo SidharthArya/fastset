@@ -23,7 +23,6 @@ def init_sample_data():
                 username="admin",
                 email="admin@fastset.com",
                 hashed_password=AuthService.get_password_hash("admin123"),
-                is_active=True
             )
             db.add(admin_user)
         
@@ -32,7 +31,6 @@ def init_sample_data():
                 username="analyst",
                 email="analyst@fastset.com", 
                 hashed_password=AuthService.get_password_hash("analyst123"),
-                is_active=True
             )
             db.add(analyst_user)
         
@@ -41,7 +39,6 @@ def init_sample_data():
                 username="viewer",
                 email="viewer@fastset.com",
                 hashed_password=AuthService.get_password_hash("viewer123"),
-                is_active=True
             )
             db.add(viewer_user)
         
@@ -163,7 +160,6 @@ def init_sample_data():
                     }
                 },
                 "action_id": None,  # Applies to all actions
-                "is_active": True
             },
             {
                 "name": "Analyst Read Access",
@@ -187,7 +183,6 @@ def init_sample_data():
                     ]
                 },
                 "action_id": None,
-                "is_active": True
             },
             {
                 "name": "Viewer Read Only",
@@ -211,7 +206,6 @@ def init_sample_data():
                     ]
                 },
                 "action_id": read_action.id if read_action else None,
-                "is_active": True
             },
             {
                 "name": "Deny Admin Actions for Non-Admins",
@@ -237,7 +231,6 @@ def init_sample_data():
                     ]
                 },
                 "action_id": admin_action.id if admin_action else None,
-                "is_active": True
             }
         ]
         

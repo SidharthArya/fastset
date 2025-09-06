@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from backend.lifespan import lifespan
 from backend.database import create_tables
-from backend.routers import auth, abac
+from backend.routers import auth, abac, users
 from backend.middleware import AuthMiddleware
 from backend.services.auth import SECRET_KEY, ALGORITHM
 import os
@@ -20,9 +20,10 @@ app = FastAPI(
 app.add_middleware(AuthMiddleware, secret_key=SECRET_KEY, algorithm=ALGORITHM)
 
 # Add CORS middleware
+cors_origins = os.environ.get("FASTSET_CORS_ORIGINS", "http://localhost:3000,http://localhost:8000")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.environ.get("FASTSET_CORS_ORIGINS", "").split("/"),  # Add your frontend URLs
+    allow_origins=cors_origins.split(","),  # Split by comma, not slash
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -31,6 +32,7 @@ app.add_middleware(
 # Include routers
 app.include_router(auth.router, prefix="/v1")
 app.include_router(abac.router, prefix="/v1")
+app.include_router(users.router, prefix="/v1")
 
 @app.on_event("startup")
 async def startup_event():

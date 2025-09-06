@@ -3,7 +3,7 @@ Authentication service for ABAC system
 """
 import secrets
 from datetime import datetime, timedelta, timezone
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
@@ -168,7 +168,7 @@ class AuthService:
             return None
         
         user = db.query(User).filter(User.id == session.user_id).first()
-        if not user or user.deleted_at is not None:
+        if not user:
             return None
         
         # Create new tokens
@@ -202,3 +202,27 @@ class AuthService:
             db.commit()
             return True
         return False
+    
+    @staticmethod
+    def get_user_by_id(db: Session, user_id: int) -> Optional[User]:
+        """Get user by ID"""
+        return db.query(User).filter(User.id == user_id).first()
+    
+    @staticmethod
+    def get_users(
+        db: Session, 
+        skip: int = 0, 
+        limit: int = 100, 
+        search: Optional[str] = None
+    ) -> List[User]:
+        """Get users with pagination and optional search"""
+        query = db.query(User)
+        
+        if search:
+            search_filter = f"%{search}%"
+            query = query.filter(
+                (User.username.ilike(search_filter)) | 
+                (User.email.ilike(search_filter))
+            )
+        
+        return query.offset(skip).limit(limit).all()
