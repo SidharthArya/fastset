@@ -10,7 +10,7 @@ erDiagram
         string username UK
         string email UK
         string hashed_password
-        boolean is_active
+        datetime deleted_at
         datetime created_at
         datetime updated_at
     }
