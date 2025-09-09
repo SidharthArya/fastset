@@ -39,7 +39,7 @@ erDiagram
         string data_type
         text value
         string description
-        boolean is_active
+        datetime deleted_at
         datetime created_at
     }
 
@@ -51,7 +51,7 @@ erDiagram
         int priority
         json conditions
         int action_id FK
-        boolean is_active
+        datetime deleted_at
         datetime created_at
         datetime updated_at
     }
@@ -63,7 +63,7 @@ erDiagram
         string refresh_token UK
         datetime expires_at
         datetime created_at
-        boolean is_active
+        datetime deleted_at
         json context
     }
 
