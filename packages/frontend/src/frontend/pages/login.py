@@ -1,7 +1,7 @@
 """Login page"""
 from fasthtml.common import *
-from components.login_form import login_form, logo_section, social_login_section
-from components.theme_toggle import theme_toggle
+from frontend.components.login_form import login_form, logo_section, social_login_section
+from frontend.components.theme_toggle import theme_toggle
 from frontend.utils.header import get_head
 
 def login_page():

@@ -1,6 +1,6 @@
 """Dashboard page"""
 from fasthtml.common import *
-from styles.base import base_styles
+from frontend.styles.base import base_styles
 
 from frontend.utils.header import get_head, get_header
 

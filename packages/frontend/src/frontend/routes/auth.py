@@ -2,8 +2,8 @@
 import os
 import httpx
 from fasthtml.common import *
-from pages.login import login_page
-from pages.welcome import welcome_page
+from frontend.pages.login import login_page
+from frontend.pages.welcome import welcome_page
 
 def login_page_with_error(error_message: str):
     """Return login page with error message"""
