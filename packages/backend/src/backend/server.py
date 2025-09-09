@@ -17,9 +17,6 @@ app = FastAPI(
 )
 
 # Add Auth middleware (before CORS)
-app.add_middleware(AuthMiddleware, secret_key=SECRET_KEY, algorithm=ALGORITHM)
-
-# Add CORS middleware
 cors_origins = os.environ.get("FASTSET_CORS_ORIGINS", "http://localhost:3000,http://localhost:8000")
 app.add_middleware(
     CORSMiddleware,
@@ -28,6 +25,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(AuthMiddleware, secret_key=SECRET_KEY, algorithm=ALGORITHM)
+
+# Add CORS middleware
+
 
 # Include routers
 app.include_router(auth.router, prefix="/v1")

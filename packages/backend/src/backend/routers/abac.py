@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_
 
 from backend.database import get_db
-from backend.dependencies import get_current_active_user, require_permission
+from backend.dependencies import get_current_active_user_middleware, require_permission
 from backend.models.abac import User, Resource, Action, Attribute, Policy, AuditLog
 from backend.schemas.abac import (
     ResourceCreate, ResourceUpdate, Resource as ResourceSchema,
@@ -227,7 +227,7 @@ def update_policy(
 def authorize_access(
     request: AuthorizationRequest,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    current_user: User = Depends(get_current_active_user_middleware)
 ):
     """Evaluate access request using ABAC engine"""
     abac_engine = ABACEngine(db)

@@ -96,7 +96,7 @@ def require_permission(resource_uri: str, action_name: str):
     Usage: @app.get("/protected", dependencies=[Depends(require_permission("/api/users", "read"))])
     """
     def check_permission(
-        current_user: User = Depends(get_current_active_user),
+        current_user: User = Depends(get_current_active_user_middleware),
         abac_engine: ABACEngine = Depends(get_abac_engine)
     ):
         request = AuthorizationRequest(
@@ -126,7 +126,7 @@ class PermissionChecker:
     
     def __call__(
         self,
-        current_user: User = Depends(get_current_active_user),
+        current_user: User = Depends(get_current_active_user_middleware),
         abac_engine: ABACEngine = Depends(get_abac_engine)
     ):
         request = AuthorizationRequest(

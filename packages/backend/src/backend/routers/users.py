@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from backend.database import get_db
 from backend.services.auth import AuthService
 from backend.schemas.abac import User, UserCreate, UserUpdate
-from backend.dependencies import get_current_active_user
+from backend.dependencies import get_current_active_user_middleware
 
 router = APIRouter(prefix="/users", tags=["users"])
 
@@ -19,7 +19,6 @@ def get_users(
     skip: int = Query(0, ge=0, description="Number of users to skip"),
     limit: int = Query(100, ge=1, le=1000, description="Number of users to return"),
     search: Optional[str] = Query(None, description="Search by username or email"),
-    current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db),
 ):
     """Get list of users with pagination and search"""
@@ -31,7 +30,6 @@ def get_users(
 @router.get("/{user_id}", response_model=User)
 def get_user(
     user_id: int,
-    current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db),
 ):
     """Get user by ID"""
@@ -47,7 +45,7 @@ def get_user(
 @router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 def create_user(
     user: UserCreate,
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Depends(get_current_active_user_middleware),
     db: Session = Depends(get_db),
 ):
     """Create a new user"""
@@ -72,7 +70,7 @@ def create_user(
 def update_user(
     user_id: int,
     user_update: UserUpdate,
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Depends(get_current_active_user_middleware),
     db: Session = Depends(get_db),
 ):
     """Update user by ID"""
@@ -118,7 +116,7 @@ def update_user(
 @router.delete("/{user_id}")
 def delete_user(
     user_id: int,
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Depends(get_current_active_user_middleware),
     db: Session = Depends(get_db),
 ):
     """Delete user by ID"""

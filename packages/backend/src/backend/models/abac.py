@@ -30,6 +30,7 @@ class User(DeclaredBase):
     """User entity with core identity information"""
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    created_by: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=True)
     username: Mapped[str] = mapped_column(String(50), unique=True, index=True, nullable=False)
     email: Mapped[str] = mapped_column(String(100), unique=True, index=True, nullable=False)
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)

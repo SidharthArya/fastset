@@ -64,9 +64,8 @@ class UserUpdate(BaseModel):
 
 class User(UserBase):
     model_config = ConfigDict(from_attributes=True)
-    
     id: int
-    is_active: bool
+    deleted_at: Union[datetime, None]
     created_at: datetime
     attributes: List[Attribute] = []
 

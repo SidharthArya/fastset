@@ -11,7 +11,7 @@ from backend.schemas.abac import (
     LoginRequest, TokenResponse,
     UserCreate, User, UserUpdate
 )
-from backend.dependencies import get_current_active_user
+from backend.dependencies import get_current_active_user_middleware
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
@@ -97,7 +97,7 @@ def refresh_token(
 def logout(
     request: Request,
     response: Response,
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Depends(get_current_active_user_middleware),
     db: Session = Depends(get_db)
 ):
     """Logout current user"""
@@ -115,14 +115,14 @@ def logout(
     return {"message": "Successfully logged out"}
 
 @router.get("/me", response_model=User)
-def get_current_user_info(current_user: User = Depends(get_current_active_user)):
+def get_current_user_info(current_user: User = Depends(get_current_active_user_middleware)):
     """Get current user information"""
     return current_user
 
 @router.put("/me", response_model=User)
 def update_current_user(
     user_update: UserUpdate,
-    current_user: User = Depends(get_current_active_user),
+    current_user: User = Depends(get_current_active_user_middleware),
     db: Session = Depends(get_db)
 ):
     """Update current user information"""
